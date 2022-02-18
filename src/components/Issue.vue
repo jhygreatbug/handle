@@ -18,7 +18,7 @@ const isPassed = ref(false)
 const href = ref('')
 const getLocation = (word: string) => {
   const key = `${`${Math.random()}`.slice(2)}_${new Date().getTime()}`
-  return `${location.origin}/?word=${encodeWord(word, key)}&key=${key}`
+  return `${location.origin}${location.pathname}?word=${encodeWord(word, key)}&key=${key}`
 }
 
 function issue() {
