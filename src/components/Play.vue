@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { answer, dayNo, isDev, isFailed, isFinished, isPassed, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
+import { answer, isDev, isFailed, isFinished, isPassed, key, showCheatSheet, showFailed, showHelp, showHint } from '~/state'
 import { markStart, meta, tries } from '~/storage'
 import { t } from '~/i18n'
 import { TRIES_LIMIT, WORD_LENGTH } from '~/logic'
@@ -129,7 +129,7 @@ watchEffect(() => {
         </button>
         <a
           class="btn"
-          :href="`/?d=${dayNo + 1}`"
+          :href="`/?d=${key + 1}`"
         >
           下一天
         </a>

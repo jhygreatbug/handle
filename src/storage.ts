@@ -1,23 +1,23 @@
 import { preferZhuyin } from './i18n'
-import { dayNo } from './state'
 import type { InputMode, TriesMeta } from './logic'
+import { key } from './state'
 
-export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
+export const legacyTries = useStorage<Record<string, string[]>>('handle-tries', {})
 
 export const initialized = useStorage('handle-initialized', false)
-export const history = useStorage<Record<number, TriesMeta>>('handle-tries-meta', {})
+export const history = useStorage<Record<string, TriesMeta>>('handle-tries-meta', {})
 export const inputMode = useStorage<InputMode>('handle-mode', preferZhuyin ? 'zy' : 'py')
 export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
 
 export const meta = computed<TriesMeta>({
   get() {
-    if (!(dayNo.value in history.value))
-      history.value[dayNo.value] = {}
-    return history.value[dayNo.value]
+    if (!(key in history.value))
+      history.value[key] = {}
+    return history.value[key]
   },
   set(v) {
-    history.value[dayNo.value] = v
+    history.value[key] = v
   },
 })
 
@@ -25,7 +25,7 @@ export const tries = computed<string[]>({
   get() {
     if (!meta.value.tries)
       meta.value.tries = []
-    return legacyTries.value[dayNo.value] || meta.value.tries
+    return legacyTries.value[key] || meta.value.tries
   },
   set(v) {
     meta.value.tries = v

@@ -1,7 +1,7 @@
-import type { ParsedChar } from './logic'
 import { START_DATE, TRIES_LIMIT, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint } from './logic'
+import type { ParsedChar } from './logic'
+import { decodeWord } from './logic/utils'
 import { useNumberTone as _useNumberTone, inputMode, meta, tries } from './storage'
-import { getAnswerOfDay } from './answers'
 
 export const now = useNow({ interval: 1000 })
 export const isDark = useDark()
@@ -10,10 +10,10 @@ export const showSettings = ref(false)
 export const showHelp = ref(false)
 export const showShare = ref(false)
 export const showFailed = ref(false)
-export const showDashboard = ref(false)
 export const showVariants = ref(false)
 export const useMask = ref(false)
 export const showCheatSheet = ref(false)
+export const showIssue = ref(false)
 
 export const useNumberTone = computed(() => {
   if (inputMode.value === 'sp')
@@ -26,15 +26,11 @@ export const useNumberTone = computed(() => {
 const params = new URLSearchParams(window.location.search)
 export const isDev = params.get('dev') === 'hey'
 export const daySince = useDebounce(computed(() => Math.floor((+now.value - +START_DATE) / 86400000)))
-export const dayNo = computed(() => +(params.get('d') || daySince.value))
-export const answer = computed(() =>
-  params.get('word')
-    ? {
-      word: params.get('word')!,
-      hint: getHint(params.get('word')!),
-    }
-    : getAnswerOfDay(dayNo.value),
-)
+export const key = params.get('key') ?? ''
+export const answer = computed(() => ({
+  word: decodeWord(params.get('word')!, key),
+  hint: getHint(params.get('word')!),
+}))
 
 export const hint = computed(() => answer.value.hint)
 export const parsedAnswer = computed(() => parseWord(answer.value.word))

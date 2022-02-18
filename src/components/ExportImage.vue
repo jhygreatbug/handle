@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dayNo, useMask } from '~/state'
+import { key, useMask } from '~/state'
 import { meta, tries } from '~/storage'
 import { t } from '~/i18n'
 
@@ -28,7 +28,7 @@ async function save() {
     useMask.value = p
   }
   else {
-    await exportImage(el.value!, `${t('name')} D${dayNo.value}.png`)
+    await exportImage(el.value!, `${t('name')} key${key}.png`)
   }
   show.value = false
 }
@@ -64,7 +64,7 @@ async function save() {
       <WordBlocks v-for="w,i of tries" :key="i" :word="w" :revealed="true" :animate="false" />
       <div relative w-full op50 my1 text-sm>
         <div absolute text-sm left-0 bottom-0>
-          D{{ dayNo }}
+          key{{ key }}
         </div>
         <div>handle.antfu.me</div>
         <div absolute text-sm right-0 bottom-0>

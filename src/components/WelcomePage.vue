@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { isDark, showHelp, showVariants, useMask } from '~/state'
+import { isDark, showHelp, showIssue, showVariants, useMask } from '~/state'
 import { initialized, inputMode } from '~/storage'
 import { t } from '~/i18n'
 
 function start() {
   showHelp.value = false
+  useMask.value = false
+  initialized.value = true
+}
+
+function issue() {
+  showHelp.value = false
+  showIssue.value = true
   useMask.value = false
   initialized.value = true
 }
@@ -65,9 +72,10 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
     <button btn tracking-widest p="x4 y2" @click="start()">
       {{ t('start') }}
     </button>
-    <div op50>
-      {{ t('update-tip') }}
-    </div>
+
+    <button btn tracking-widest p="x4 y2" @click="issue()">
+      {{ t('issue') }}
+    </button>
 
     <Settings />
 

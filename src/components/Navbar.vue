@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { isDark, showCheatSheet, showDashboard, showFailed, showHelp, showHint, showSettings, showVariants, useMask } from '~/state'
-import { gamesCount } from '~/storage'
+import { isDark, showCheatSheet, showFailed, showHelp, showHint, showIssue, showSettings, showVariants, useMask } from '~/state'
 import { t } from '~/i18n'
 
 const toggleDark = useToggle(isDark)
 const toggleSettings = useToggle(showSettings)
-const toggleDashboard = useToggle(showDashboard)
 
 function openHelp() {
   showHelp.value = true
   useMask.value = false
 }
+
+function openIssue() {
+  showIssue.value = true
+  useMask.value = false
+}
+
 </script>
 
 <template>
@@ -25,8 +29,8 @@ function openHelp() {
         <button class="icon-btn" @click="openHelp()">
           <div i-carbon-help />
         </button>
-        <button v-if="gamesCount" class="icon-btn" @click="toggleDashboard()">
-          <div i-carbon-catalog />
+        <button class="icon-btn" @click="openIssue()">
+          <div i-carbon-edit />
         </button>
       </div>
       <div flex="~ gap-4" items-center>
@@ -46,14 +50,14 @@ function openHelp() {
   <Modal v-model="showHelp" direction="top">
     <WelcomePage />
   </Modal>
+  <Modal v-model="showIssue" direction="top">
+    <Issue />
+  </Modal>
   <Modal v-model="showHint" direction="top">
     <Hint />
   </Modal>
   <Modal v-model="showFailed" direction="top">
     <FailedPage />
-  </Modal>
-  <Modal v-model="showDashboard" direction="top">
-    <Dashboard />
   </Modal>
   <Modal v-model="showVariants" direction="top">
     <VariantLinks />

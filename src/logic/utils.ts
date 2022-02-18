@@ -128,3 +128,20 @@ export function getPinyin(word: string) {
     return data[1].split(/\s+/g)
   return Pinyin(simplifiedWord, { style: Pinyin.STYLE_TONE2 }).map(i => i[0])
 }
+
+const prime = [7, 11, 13, 17]
+const K = 17
+export const encodeWord = (str: string, key: string) => {
+  const k = parseInt(key.slice(3, 5), 10) % K
+  return str
+    .split('')
+    .map((s, i) => String.fromCharCode(s.charCodeAt(0) + prime[i] + k))
+    .join('')
+}
+export const decodeWord = (str: string, key: string) => {
+  const k = parseInt(key.slice(3, 5), 10) % K
+  return str
+    .split('')
+    .map((s, i) => String.fromCharCode(s.charCodeAt(0) - prime[i] - k))
+    .join('')
+}

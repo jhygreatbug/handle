@@ -1,5 +1,5 @@
 import { initialized, markEnd, markStart, meta, onPause } from './storage'
-import { answer, dayNo, isFinished, isPassed, showHelp } from './state'
+import { answer, isFinished, isPassed, showHelp } from './state'
 import { t } from './i18n'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
@@ -7,7 +7,7 @@ useTitle(computed(() => `${t('name')} - ${t('description')}`))
 // show answer in console
 watchEffect(() => {
   // eslint-disable-next-line no-console
-  console.log(`D${dayNo.value}`, { are: { you: { sure: { to: { cheat: { '?': answer.value.word } } } } } })
+  console.log({ are: { you: { sure: { to: { cheat: { '?': answer.value.word } } } } } })
 }, { flush: 'post' })
 
 if (!initialized.value)
