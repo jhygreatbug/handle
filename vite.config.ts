@@ -10,6 +10,7 @@ import { presetAttributify, presetIcons, presetUno } from 'unocss'
 import Unocss from 'unocss/vite'
 
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/dist' : '/',
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
